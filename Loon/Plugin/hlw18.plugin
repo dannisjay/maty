@@ -1,0 +1,14 @@
+#!name = 黑料网去广告
+#!desc = 只去除了首页广告，其他地方的不会去。155fun.com 这是发布页
+#!openUrl = https://18hlw.com/
+#!author = fishdown
+#!tag = 去广告
+#!icon = https://raw.githubusercontent.com/Toperlock/Quantumult/main/icon/heiliao.png
+#!date = 2024-11-19
+
+[Rewrite] 
+# 155fun.com 黑料网去广告
+^https:\/\/18hlw\.com response-body-replace-regex <style> <style>.gotoclick{\x20display:none\x20!important}\x20.modal{\x20display:none\x20!important}
+
+[Mitm]
+hostname = 18hlw.com
