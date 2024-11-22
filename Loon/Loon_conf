@@ -80,7 +80,7 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Alibaba/Alibaba_Domain.list, policy=DIRECT, tag=𝘼𝙡𝙞𝙗𝙖𝙗𝙖, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Microsoft/Microsoft.list, policy=DIRECT, tag=𝙈𝙞𝙘𝙧𝙤𝙨𝙤𝙛𝙩, enabled=true
 https://github.com/blackmatrix7/ios_rule_script/blob/master/rule/Loon/AppleID/AppleID.list, policy=DIRECT, tag=𝘼𝙥𝙥𝙡𝙚𝙞𝙙, enabled=true
-https://proxyresource.pages.dev/Tool/Loon/Rule/AI.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝘼𝙞 𝘾𝙤𝙡𝙡𝙚𝙘𝙩𝙞𝙤𝙣, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/OpenAI/OpenAI.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝙊𝙥𝙚𝙣𝘼𝙞, enabled=true
 https://github.com/blackmatrix7/ios_rule_script/blob/master/rule/Loon/Twitter/Twitter.list, policy=𝙃𝙤𝙣𝙜 𝙆𝙤𝙣𝙜, tag=𝙏𝙬𝙞𝙩𝙩𝙚𝙧, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Instagram/Instagram.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝙄𝙣𝙨𝙩𝙖𝙜𝙧𝙖𝙢, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Whatsapp/Whatsapp.list, policy=𝙃𝙤𝙣𝙜 𝙆𝙤𝙣𝙜, tag=𝙒𝙝𝙖𝙩𝙨𝙖𝙥𝙥, enabled=true
