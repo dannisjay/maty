@@ -2,6 +2,12 @@
 # 配置链接 https://raw.githubusercontent.com/DannisJay/maty/refs/heads/main/Loon/Loon_conf
 
 [General]
+doh3-server = h3://dns.alidns.com/dns-query
+doq-server = quic://cloudflare-dns.com:784,quic://dns.google:853
+doh-server = https://dns.alidns.com/dns-query,https://doh.pub/dns-query
+real-ip = *.apple.com,*.icloud.com,*.ugreen.cloud,*.ugreengroup.com
+ip-mode = ipv4-only
+dns-server = 119.29.29.29,119.28.28.28,223.5.5.5,114.114.114.114,/*.taobao.com/223.5.5.5,/*.tmall.com/223.5.5.5,/*.alipay.com/223.5.5.5,/*.aliyun.com/223.5.5.5,/*.jd.com/119.28.28.28,/*.qq.com/119.28.28.28,/*.tencent.com/119.28.28.28,/*.bilibili.com/119.29.29.29,/*.weixin.com/119.28.28.28,/*.netease.com/119.29.29.29,/*testflight.apple.com/23.76.66.98
 real-ip = *.apple.com,*.icloud.com,*.ugreen.cloud,*.ugreengroup.com
 ip-mode = ipv4-only
 dns-server = system
