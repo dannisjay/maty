@@ -102,6 +102,8 @@ ssid:PHICOMM_5G = server:10.0.0.1
 [Remote Script]
 https://github.com/fmz200/wool_scripts/raw/main/Loon/script/tools.scripts, tag=Loon工具合集, enabled=true
 [Plugin]
+https://github.com/VirgilClyne/GetSomeFries/raw/main/plugin/DNS.plugin, enabled=true
+https://raw.githubusercontent.com/tearpeng/ios/refs/heads/main/dns%E6%98%A0%E5%B0%84, enabled=true
 https://github.com/NSRingo/Siri/releases/latest/download/Siri.plugin, enabled=true
 https://github.com/NSRingo/GeoServices/releases/latest/download/Location.plugin, enabled=true
 https://github.com/NSRingo/GeoServices/releases/latest/download/Maps.plugin, enabled=true
