@@ -89,8 +89,8 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/PikPak/PikPak.list, policy=𝙃𝙤𝙣𝙜 𝙆𝙤𝙣𝙜, tag=𝙋𝙞𝙠𝙋𝙖𝙠, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Facebook/Facebook.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝙁𝙖𝙘𝙚𝙗𝙤𝙤𝙠, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Instagram/Instagram.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝙄𝙣𝙨𝙩𝙖𝙜𝙧𝙖𝙢, enabled=true
-https://kelee.one/Tool/Loon/Rule/LAN, policy=DIRECT, tag=𝙇𝘼𝙉, enabled=true
-https://kelee.one/Tool/Loon/Rule/CN_REGION, policy=DIRECT, tag=𝘾𝙉 𝙍𝙀𝙂𝙄𝙊𝙉, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Lan/Lan.list, policy=DIRECT, tag=𝙇𝙖𝙣, enabled=true
+https://raw.githubusercontent.com/DannisJay/maty/refs/heads/main/Loon/Rule/China.list, policy=DIRECT, tag=𝘾𝙝𝙞𝙣𝙖, enabled=true
 
 [Host]
 ssid:PHICOMM_5G = server:10.0.0.1
@@ -102,17 +102,14 @@ ssid:PHICOMM_5G = server:10.0.0.1
 [Remote Script]
 https://github.com/fmz200/wool_scripts/raw/main/Loon/script/tools.scripts, tag=Loon工具合集, enabled=true
 [Plugin]
+http://raw.githubusercontent.com/Yuheng0101/X/main/Scripts/NeteaseCloudMusic/netease.plugin, enabled=true
 https://github.com/VirgilClyne/GetSomeFries/raw/main/plugin/DNS.plugin, enabled=true
 https://raw.githubusercontent.com/tearpeng/ios/refs/heads/main/dns%E6%98%A0%E5%B0%84, enabled=true
-https://github.com/NSRingo/Siri/releases/latest/download/Siri.plugin, enabled=true
-https://github.com/NSRingo/GeoServices/releases/latest/download/Location.plugin, enabled=true
-https://github.com/NSRingo/GeoServices/releases/latest/download/Maps.plugin, enabled=true
 https://kelee.one/Tool/Loon/Plugin/BlockAdvertisers.plugin, enabled=true
 https://kelee.one/Tool/Loon/Plugin/Remove_ads_by_keli.plugin, enabled=true
 https://kelee.one/Tool/Loon/Plugin/Block_HTTPDNS.plugin, enabled=true
 https://kelee.one/Tool/Loon/Plugin/TikTok_redirect.plugin, policy=𝙅𝙖𝙥𝙖𝙣, enabled=true
 https://raw.githubusercontent.com/axhani/Script/refs/heads/main/CiSC.plugin, enabled=true
-http://script.hub/file/_start_/https://raw.githubusercontent.com/Yuheng0101/X/main/Scripts/NeteaseCloudMusic/netease.js/_end_/netease.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=网易云音乐Vip, enabled=true
 http://script.hub/file/_start_/https://raw.githubusercontent.com/wf021325/qx/master/js/caiyun.js/_end_/caiyun.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=☁️彩云SVIP, enabled=true
 https://kelee.one/Tool/Loon/Plugin/Baidu_input_method_remove_ads.plugin, enabled=true
 https://kelee.one/Tool/Loon/Plugin/ColorfulClouds_remove_ads.plugin, enabled=true
@@ -132,7 +129,6 @@ https://kelee.one/Tool/Loon/Plugin/Prevent_DNS_Leaks.plugin, policy=𝙁𝙞𝙣
 https://kelee.one/Tool/Loon/Plugin/Node_detection_tool.plugin, enabled=true
 https://kelee.one/Tool/Loon/Plugin/BoxJs.plugin, policy=𝙁𝙞𝙣𝙖𝙡, enabled=true
 https://kelee.one/Tool/Loon/Plugin/Script-Hub.plugin, policy=𝙋𝙧𝙤𝙭𝙮, enabled=true
-http://script.hub/file/_start_/https://raw.githubusercontent.com/chxm1023/Rewrite/main/JavDB.js/_end_/JavDB.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=Javdb, enabled=false
 
 [Mitm]
 ca-p12 =
