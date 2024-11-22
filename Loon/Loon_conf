@@ -1,249 +1,135 @@
-# Loon精简配置 Dannis自用配置
-# 配置链接 https://raw.githubusercontent.com/Lincorn/test/refs/heads/main/Loon_conf
-
+# Loon配置 Dannis自用配置
+# 配置链接 https://raw.githubusercontent.com/DannisJay/maty/refs/heads/main/Loon/Loon_conf
 
 [General]
-ipasn-url = https://github.com/LD2J0618/loon/blob/plugin%26rule/GeoIP_all.mmdb
-doh3-server = h3://dns.alidns.com/dns-query
-doq-server = quic://cloudflare-dns.com:784,quic://dns.google:853
-doh-server = https://dns.alidns.com/dns-query,https://doh.pub/dns-query
-ipasn-url = https://raw.githubusercontent.com/P3TERX/GeoLite.mmdb/download/GeoLite2-ASN.mmdb
-ip-mode = dual
-disconnect-on-policy-change = false
+real-ip = *.apple.com,*.icloud.com,*.ugreen.cloud,*.ugreengroup.com
+ip-mode = ipv4-only
+dns-server = system
+sni-sniffing = true
+disable-stun = false
 dns-reject-mode = LoopbackIP
 domain-reject-mode = DNS
 udp-fallback-mode = REJECT
-geoip-url = https://github.com/Masaiki/GeoIP2-CN/raw/release/Country.mmdb
-sni-sniffing = true
-
-# 跳过某个域名或者IP段
-skip-proxy = 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,localhost,*.local,e.crashlynatics.com,*.ccb.com
-bypass-tun = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.0.2.0/24,192.88.99.0/24,192.168.0.0/16,198.51.100.0/24,203.0.113.0/24,224.0.0.0/4,255.255.255.255/32
-
-# Real-Ip
-real-ip = *.apple.com,*.icloud.com,*.ugreen.cloud,*.ugreengroup.com
-
-# DNS 服务器
-#dns-server = system
-dns-server = 119.29.29.29,223.5.5.5
-
-# Wi-Fi 访问
-allow-wifi-access = false
 wifi-access-http-port = 7222
 wifi-access-socks5-port = 7221
-
-# 代理测速 URL
-proxy-test-url = http://detectportal.firefox.com/success.txt
-internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
-# > 测速超时 (s)
-test-timeout = 5
-
-# 网络接口模式
+allow-wifi-access = false
 interface-mode = auto
-
-# 节点连续失败几次后进行节点切换
+test-timeout = 5
+disconnect-on-policy-change = false
 switch-node-after-failure-times = 3
+internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
+proxy-test-url = http://www.gstatic.com/generate_204
+resource-parser = https://raw.githubusercontent.com/sub-store-org/Sub-Store/release/sub-store-parser.loon.min.js
+geoip-url = https://raw.githubusercontent.com/Masaiki/GeoIP2-CN/release/Country.mmdb
+ipasn-url = https://raw.githubusercontent.com/P3TERX/GeoLite.mmdb/download/GeoLite2-ASN.mmdb
+skip-proxy = 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,localhost,*.local,e.crashlynatics.com
+bypass-tun = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.0.2.0/24,192.88.99.0/24,192.168.0.0/16,198.51.100.0/24,203.0.113.0/24,224.0.0.0/4,255.255.255.255/32
 
-# 丢弃 STUN
-disable-stun = true
-
-# 解析器
-resource-parser = https://gitlab.com/sub-store/Sub-Store/-/releases/permalink/latest/downloads/sub-store-parser.loon.min.js
-
-[Host]
-
-
-# 订阅节点
-[Remote Proxy]
-
-
-# 节点筛选
-[Remote Filter]
-
-订阅节点 = NameRegex, FilterKey = "^(?!.*(流量|测试|使用|更新|游戏)).*$"
-手动筛选 = NameRegex, FilterKey = "(.*)"
-香港节点 = NameRegex, FilterKey = "(?i)(?:🇭🇰|港|香港|\b(?:HK|Hong\x20?Kong)\b)(?!.*免流)"
-新加坡节点 = NameRegex, FilterKey = "(?i)(?:🇸🇬|坡|新加坡|狮城|\b(?:SG|Singapore)\b)"
-台湾节点 = NameRegex, FilterKey = "(?i)(?:🇹🇼|🇨🇳|台|湾|台湾|台灣|\b(?:TW|Taiwan)\b)"
-韩国节点 = NameRegex, FilterKey = "(?i)(?:🇰🇷|韩|韓|韩国|韓國|首尔|南朝鲜|\b(?:KR|KOR|Korea|South\x20?Korea)\b)"
-美国节点 = NameRegex, FilterKey = "(?i)(?:🇺🇸|美|美国|美國|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|\b(?:US|United\x20?States|American)\b)"
-日本节点 = NameRegex, FilterKey = "(?i)(?:🇯🇵|日|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|\b(?:JP|Japan)\b)"
-
-# 本地节点
 [Proxy]
 
+[Remote Proxy]
 
-# 策略组
+[Remote Filter]
+全部 = NameRegex, FilterKey = "^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b|(\d{4}-\d{2}-\d{2}|\dG)))).*$"
+香港 = NameRegex,𝘼𝙢𝙮𝙏𝙚𝙡𝙚𝙘𝙤𝙢,𝙀𝙁☁️, FilterKey = "^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
+美国 = NameRegex,𝘼𝙢𝙮𝙏𝙚𝙡𝙚𝙘𝙤𝙢, FilterKey = "^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\b(US|United States)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
+日本 = NameRegex,𝘼𝙢𝙮𝙏𝙚𝙡𝙚𝙘𝙤𝙢, FilterKey = "^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|Japan)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
+
 [Proxy Group]
-Bypass = select,香港延迟优选,新加坡延迟优选,日本延迟优选,台湾延迟优选,韩国延迟优选,url = http://cp.cloudflare.com/generate_204,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/lightning.png
-香港延迟优选 = fallback,香港节点,interval = 600,max-timeout = 10,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Hongkong.png
-日本延迟优选 = fallback,日本节点,interval = 600,max-timeout = 600,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/zl-icon-jp-flag.png
-台湾延迟优选 = fallback,台湾节点,interval = 600,max-timeout = 2000,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/taiwan(3).png
-韩国延迟优选 = fallback,韩国节点,interval = 600,max-timeout = 2000,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Korea.png
-新加坡延迟优选 = fallback,新加坡节点,interval = 600,max-timeout = 10,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/singapore(1).png
-自动GPT = url-test,美国节点,interval = 60,tolerance = 50,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/ChatGPT-green.png
-TikTok = select,日本延迟优选,香港延迟优选,新加坡延迟优选,自动GPT,url = http://cp.cloudflare.com,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/tiktok((2).png
-Telegram = select,香港延迟优选,新加坡延迟优选,日本延迟优选,url = http://cp.cloudflare.com,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/telegram(1).png
+# 手动
+# --------------------------------
+𝙋𝙧𝙤𝙭𝙮 = select,全部,url = http://www.gstatic.com/generate_204,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Universal/Final.png
+𝙃𝙤𝙣𝙜 𝙆𝙤𝙣𝙜 = select,香港,url = http://www.gstatic.com/generate_204,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png
+𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨 = select,美国,url = http://www.gstatic.com/generate_204,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Liberia.png
+𝙅𝙖𝙥𝙖𝙣 = select,日本,url = http://www.gstatic.com/generate_204,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png
+# --------------------------------
+# 兜底策略故障转移
+𝙁𝙞𝙣𝙖𝙡 = select,DIRECT,𝙋𝙧𝙤𝙭𝙮,url = http://www.gstatic.com/generate_204,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Google_Suite/Photos.png
 
-
-
-
-
-
-
-# 本地规则
 [Proxy Chain]
 
 [Rule]
+DOMAIN,lens.1.google.com,𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨
+# Local Rule
+# Type:DOMAIN-SUFFIX,DOMAIN,DOMAIN-KEYWORD,USER-AGENT,URL-REGEX,IP-CIDR,IP-CIDR6,IP-ASN
+# Strategy:DIRECT,Proxy,REJECT
+# Options:no-resolve(no-resolve(only for cidr))
+# IP-CIDR,192.168.0.0/16,DIRECT
+# IP-CIDR,10.0.0.0/8,DIRECT
+# IP-CIDR,172.16.0.0/12,DIRECT
+# IP-CIDR,127.0.0.0/8,DIRECT
+# 配置文件已自带远程GEOIP,cn,DIRECT规则，请勿在此添加
+# 请勿修改远程CN REGION规则的排序甚至删除
+IP-CIDR,28.0.0.1/8,DIRECT
+IP-CIDR,198.18.0.1/16,DIRECT
+IP-CIDR,198.18.0.0/15,DIRECT
+IP-CIDR6,fc00::/18,DIRECT
+FINAL,𝙁𝙞𝙣𝙖𝙡
 
-
-# > GeoIP China
-FINAL,Bypass
-
-
-
-
-
-# 订阅规则
 [Remote Rule]
-https://raw.githubusercontent.com/Lincorn/test/refs/heads/main/Clutter%20of%20rules, policy=REJECT-DROP, tag=Clutter of rules, enabled=true
-https://github.com/fmz200/wool_scripts/raw/main/Loon/rule/rejectAd.list, policy=REJECT, tag=rejectAd.list, enabled=false
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Telegram/Telegram.list, policy=Telegram, tag=Telegram, enabled=true
-https://proxyresource.pages.dev/Tool/Loon/Rule/AI.list, policy=自动GPT, tag=AI.list, enabled=true
-https://kelee.one/Tool/Loon/Rule/AppStore.list, policy=DIRECT, tag=AppStore.list, enabled=false
-https://kelee.one/Tool/Loon/Rule/AppleID.list, policy=DIRECT, tag=Apple ID, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/GitHub/GitHub.list, policy=Bypass, tag=GitHub.list, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Twitter/Twitter.list, policy=Bypass, tag=Twitter.list, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Facebook/Facebook.list, policy=Bypass, tag=Facebook.list, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Spotify/Spotify.list, policy=自动GPT, tag=Spotify.list, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Instagram/Instagram.list, policy=Bypass, tag=Instagram, enabled=true
+https://github.com/blackmatrix7/ios_rule_script/blob/master/rule/Loon/Advertising/Advertising.list, policy=REJECT, tag=𝘼𝙙𝙫𝙚𝙧𝙩𝙞𝙨𝙞𝙣𝙜, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Google/Google.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝙂𝙤𝙤𝙜𝙡𝙚, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Telegram/Telegram.list, policy=𝙃𝙤𝙣𝙜 𝙆𝙤𝙣𝙜, tag=𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/TikTok/TikTok.list, policy=𝙅𝙖𝙥𝙖𝙣, tag=𝙏𝙞𝙠𝙏𝙤𝙠, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Alibaba/Alibaba_Domain.list, policy=DIRECT, tag=𝘼𝙡𝙞𝙗𝙖𝙗𝙖, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Microsoft/Microsoft.list, policy=DIRECT, tag=𝙈𝙞𝙘𝙧𝙤𝙨𝙤𝙛𝙩, enabled=true
+https://github.com/blackmatrix7/ios_rule_script/blob/master/rule/Loon/AppleID/AppleID.list, policy=DIRECT, tag=𝘼𝙥𝙥𝙡𝙚𝙞𝙙, enabled=true
+https://proxyresource.pages.dev/Tool/Loon/Rule/AI.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝘼𝙞 𝘾𝙤𝙡𝙡𝙚𝙘𝙩𝙞𝙤𝙣, enabled=true
+https://github.com/blackmatrix7/ios_rule_script/blob/master/rule/Loon/Twitter/Twitter.list, policy=𝙃𝙤𝙣𝙜 𝙆𝙤𝙣𝙜, tag=𝙏𝙬𝙞𝙩𝙩𝙚𝙧, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Instagram/Instagram.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝙄𝙣𝙨𝙩𝙖𝙜𝙧𝙖𝙢, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Whatsapp/Whatsapp.list, policy=𝙃𝙤𝙣𝙜 𝙆𝙤𝙣𝙜, tag=𝙒𝙝𝙖𝙩𝙨𝙖𝙥𝙥, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Discord/Discord.list, policy=𝙃𝙤𝙣𝙜 𝙆𝙤𝙣𝙜, tag=𝘿𝙞𝙨𝙘𝙤𝙧𝙙, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/DouYin/DouYin.list, policy=DIRECT, tag=抖音, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/PikPak/PikPak.list, policy=𝙃𝙤𝙣𝙜 𝙆𝙤𝙣𝙜, tag=𝙋𝙞𝙠𝙋𝙖𝙠, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Facebook/Facebook.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝙁𝙖𝙘𝙚𝙗𝙤𝙤𝙠, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Instagram/Instagram.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝙄𝙣𝙨𝙩𝙖𝙜𝙧𝙖𝙢, enabled=true
+https://kelee.one/Tool/Loon/Rule/LAN, policy=DIRECT, tag=𝙇𝘼𝙉, enabled=true
+https://kelee.one/Tool/Loon/Rule/CN_REGION, policy=DIRECT, tag=𝘾𝙉 𝙍𝙀𝙂𝙄𝙊𝙉, enabled=true
 
-# > Emby
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Netflix/Netflix.list, policy=Bypass, tag=Netflix, enabled=true
-https://raw.githubusercontent.com/Tartarus2014/For-own-use/master/Ruleset/Emby/Emby.list, policy=Bypass, tag=Emby, enabled=true
+[Host]
+ssid:PHICOMM_5G = server:10.0.0.1
 
-# > YouTube
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTube/YouTube.list, policy=Bypass, tag=YouTube, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Google/Google.list, policy=Bypass, tag=Google.list, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/OneDrive/OneDrive.list, policy=Bypass, tag=OneDrive.list, enabled=true
+[Rewrite]
 
-# > Netflix
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Lan/Lan.list, policy=DIRECT, tag=Lan.list, enabled=true
-
-# > Telegram
-
-# > Speedtest
-https://proxyresource.pages.dev/Tool/Loon/Rule/CN_REGION, policy=DIRECT, tag=CN REGION, enabled=true
-
-# > China
-
-# > Proxy
-# https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Proxy/Proxy.list, policy=节点选择, tag=Proxy, enabled=true
-
-# > 本地局域网
-
-# 本地重写
-[URL Rewrite]
-
-# 订阅重写
-[Remote Rewrite]
-
-# 插件
-[Plugin]
-# > 开屏广告
-https://kelee.one/Tool/Loon/Plugin/LoonGallery.plugin, policy=Bypass, tag=插件仓库, enabled=true
-https://loon.126996.xyz/Tool/Loon/Plugin/Block_HTTPDNS.plugin, tag=拦截HTTPDNS, enabled=true
-https://kelee.one/Tool/Loon/Plugin/BlockAdvertisers.plugin, tag=广告平台拦截器, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Remove_ads_by_keli.plugin, tag=可莉广告过滤器, enabled=true
-https://raw.githubusercontent.com/Tartarus2014/Loon-Script/master/Plugin/skip-proxy.plugin, img-url=https://gitlab.com/lodepuly/iconlibrary/-/raw/main/Other_icon/120px/Switch.png, enabled=true
-https://raw.githubusercontent.com/Lincorn/test/refs/heads/main/Fries%20General%20Enhanced, enabled=true
-https://raw.githubusercontent.com/tearpeng/ios/refs/heads/main/dns%E6%98%A0%E5%B0%84, enabled=true
-https://github.com/VirgilClyne/GetSomeFries/raw/main/plugin/DNS.plugin, enabled=true
-https://raw.githubusercontent.com/Mai486/Loon/main/plugin/Tg_url_turrit.plugin, enabled=false
-https://kelee.one/Tool/Loon/Plugin/WPS_checkin.plugin, enabled=false
-http://script.hub/file/_start_/https://raw.githubusercontent.com/LOWERTOP/Shadowrocket-First/refs/heads/main/Talkatone.sgmodule/_end_/Talkatone.plugin?type=surge-module&target=loon-plugin&del=true, policy=Bypass, enabled=false
-https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/modules/script-hub.loon.plugin, policy=Bypass, enabled=true
-https://raw.githubusercontent.com/axhani/Script/refs/heads/main/CiSC.plugin, enabled=false
-https://kelee.one/Tool/Loon/Plugin/QuickSearch.plugin, tag=快捷搜索, enabled=true
-https://raw.githubusercontent.com/sub-store-org/Sub-Store/master/config/Loon.plugin, policy=Bypass, enabled=false
-https://kelee.one/Tool/Loon/Plugin/BoxJs.plugin, policy=Bypass, tag=BoxJs, enabled=true
-https://kelee.one/Tool/Loon/Plugin/TestFlightRegionUnlock.plugin, policy=DIRECT, tag=TestFlight地区解锁, enabled=true
-https://gitlab.com/isous/loonresource/-/raw/main/Plugin/BaiduWenku_crack.plugin, enabled=true
-https://raw.githubusercontent.com/deezertidal/private/master/plugallery/bili.plugin, tag=Bilibili 解锁1080P, enabled=true
-https://kelee.one/Tool/Loon/Plugin/QQ_Redirect.plugin, tag=QQ链接解锁, enabled=true
-https://kelee.one/Tool/Loon/Plugin/VVebo_repair.plugin, tag=VVebo时间线修复, enabled=true
-https://gitlab.com/isous/loonresource/-/raw/main/Plugin/ColorfulClouds_shared_membership.plugin, enabled=true
-https://raw.githubusercontent.com/Lincorn/RuCu6/refs/heads/main/Plugins/cloudmusic.plugin, tag=网易云音乐会员, enabled=false
-https://whatshub.top/plugin/wxds.plugin, tag=微信读书会员, enabled=true
-https://gitlab.com/isous/loonresource/-/raw/main/Plugin/Bilibili_shared_membership.plugin, enabled=false
-https://raw.githubusercontent.com/deezertidal/private/master/plugallery/ydcd.plugin, tag=有道词典会员, enabled=true
-https://raw.githubusercontent.com/LD2J0618/loon/refs/heads/plugin%26rule/AD_Web.plugin, policy=REJECT-DROP, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Bilibili_remove_ads.plugin, tag=哔哩哔哩去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/SodaMusic_remove_ads.plugin, enabled=true
-https://kelee.one/Tool/Loon/Plugin/BaiduPhoto_remove_ads.plugin, enabled=true
-https://kelee.one/Tool/Loon/Plugin/OraySunlogin_remove_ads.plugin, enabled=true
-https://kelee.one/Tool/Loon/Plugin/BaiduNetDisk_remove_ads.plugin, enabled=true
-https://kelee.one/Tool/Loon/Plugin/MaFengWo_remove_ads.plugin, enabled=true
-https://kelee.one/Tool/Loon/Plugin/51Job_remove_ads.plugin, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Yueyou_remove_ads.plugin, enabled=true
-https://kelee.one/Tool/Loon/Plugin/smzdm_remove_ads.plugin, enabled=true
-https://kelee.one/Tool/Loon/Plugin/NeteaseCloudMusic_remove_ads.plugin, tag=网易云音乐去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/MailMaster_remove_ads.plugin, enabled=true
-https://raw.githubusercontent.com/Lincorn/test/refs/heads/main/12306_remove_ads.plugin, tag=12306去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/12306_remove_ads.plugin, enabled=false
-https://kelee.one/Tool/Loon/Plugin/QQMusic_remove_ads.plugin, tag=QQ音乐去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Weibo_remove_ads.plugin, tag=微博去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/ZhuanZhuan_remove_ads.plugin, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Zhihu_remove_ads.plugin, tag=知乎去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/RedPaper_remove_ads.plugin, tag=小红书去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/YouTube_remove_ads.plugin, tag=YouTube去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Amap_remove_ads.plugin, tag=高德地图去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/FleaMarket_remove_ads.plugin, tag=闲鱼去广告, enabled=true
-https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/BaiduNetDisk.plugin, tag=百度网盘去广告, enabled=false
-https://kelee.one/Tool/Loon/Plugin/KuGou_remove_ads.plugin, tag=酷狗音乐去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/BaiduSearchWebpage_remove_ads.plugin, tag=百度网页去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/KuaiDi100_remove_ads.plugin, tag=快递100去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/FC_Box_remove_ads.plugin, tag=丰巢去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/PuPuMall_remove_ads.plugin, tag=朴朴超市去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Soul_remove_ads.plugin, tag=Soul去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/NetEaseGodlike_remove_ads.plugin, tag=网易大神去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/SF-Express_remove_ads.plugin, tag=顺丰速运去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/555DY_remove_ads.plugin, tag=555电影去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/123NetWorkDisk_remove_ads.plugin, tag=123云盘去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Keep_remove_ads.plugin, tag=Keep去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/UnionPay_remove_ads_with_ssl_unpinning.plugin, tag=云闪付去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/QiDian_remove_ads.plugin, tag=起点读书去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/BaiduMap_remove_ads.plugin, tag=百度地图去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/QQKSong_remove_ads.plugin, tag=全民K歌去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/QuarkBrowser_remove_ads.plugin, tag=夸克去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Tencent_Video_remove_ads.plugin, tag=腾讯视频去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Weixin_Official_Accounts_remove_ads.plugin, tag=微信公众号去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/ColorfulClouds_remove_ads.plugin, tag=彩云天气去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Spotify_remove_ads.plugin, tag=Spotify去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/YoudaoDict_remove_ads.plugin, tag=网易有道词典去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/DragonRead_remove_ads.plugin, tag=番茄小说去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/DiDi_remove_ads.plugin, tag=滴滴出行去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Cainiao_remove_ads.plugin, tag=菜鸟去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/JD_remove_ads.plugin, tag=京东去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/PinDuoDuo_remove_ads.plugin, tag=拼多多去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/WexinMiniPrograms_Remove_ads.plugin, tag=微信小程序去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/CoolApk_remove_ads.plugin, tag=酷安去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/Taobao_remove_ads.plugin, tag=淘宝去广告, enabled=true
-https://kelee.one/Tool/Loon/Plugin/UnionPay_remove_ads_with_ssl_unpinning.plugin, tag=云闪付去广告, enabled=true
-
-
-
-# 本地脚本
 [Script]
 
-# 远程脚本 
 [Remote Script]
 https://github.com/fmz200/wool_scripts/raw/main/Loon/script/tools.scripts, tag=Loon工具合集, enabled=true
+[Plugin]
+https://github.com/NSRingo/Siri/releases/latest/download/Siri.plugin, enabled=true
+https://github.com/NSRingo/GeoServices/releases/latest/download/Location.plugin, enabled=true
+https://github.com/NSRingo/GeoServices/releases/latest/download/Maps.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/BlockAdvertisers.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Remove_ads_by_keli.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Block_HTTPDNS.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/TikTok_redirect.plugin, policy=𝙅𝙖𝙥𝙖𝙣, enabled=true
+https://raw.githubusercontent.com/axhani/Script/refs/heads/main/CiSC.plugin, enabled=true
+http://script.hub/file/_start_/https://raw.githubusercontent.com/Yuheng0101/X/main/Scripts/NeteaseCloudMusic/netease.js/_end_/netease.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=网易云音乐Vip, enabled=true
+http://script.hub/file/_start_/https://raw.githubusercontent.com/wf021325/qx/master/js/caiyun.js/_end_/caiyun.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=☁️彩云SVIP, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Baidu_input_method_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/ColorfulClouds_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/ShuQiCenterReader_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/PiPiXia_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Amap_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/QQMusic_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Weibo_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/YouTube_remove_ads.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Weixin_external_links_unlock.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/QQ_Redirect.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Switch_github_mirror.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/YouTubeSubtitlesTranslation.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/JD_Price.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/LoonGallery.plugin, policy=𝙁𝙞𝙣𝙖𝙡, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Prevent_DNS_Leaks.plugin, policy=𝙁𝙞𝙣𝙖𝙡, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Node_detection_tool.plugin, enabled=true
+https://kelee.one/Tool/Loon/Plugin/BoxJs.plugin, policy=𝙁𝙞𝙣𝙖𝙡, enabled=true
+https://kelee.one/Tool/Loon/Plugin/Script-Hub.plugin, policy=𝙋𝙧𝙤𝙭𝙮, enabled=true
+http://script.hub/file/_start_/https://raw.githubusercontent.com/chxm1023/Rewrite/main/JavDB.js/_end_/JavDB.plugin?type=qx-rewrite&target=loon-plugin&del=true, tag=Javdb, enabled=false
 
-[MITM]
-ca-p12 = 
-# 默认 = 启用
+[Mitm]
+ca-p12 =
+ca-passphrase =
 hostname =
-ca-p12 = 
-ca-passphrase = 
+ca-p12=
+ca-passphrase=
 skip-server-cert-verify = false
