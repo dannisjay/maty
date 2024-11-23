@@ -45,18 +45,16 @@ rule-providers:
 # 分流Policy 
 rules:
   - RULE-SET,AdBlock,AdBlock
-  - RULE-SET,OpenAi,OpenAi
-  - RULE-SET,BiliBili,哔哩哔哩
-  - RULE-SET,Bahamut,哔哩哔哩
-  - RULE-SET,GlobalMedia,国际媒体
-  - RULE-SET,Apple,苹果服务
-  - RULE-SET,Github,全球加速
-  - RULE-SET,Microsoft,全球加速
-  - RULE-SET,Google,谷歌服务
-  - RULE-SET,Telegram,电报消息
-  - RULE-SET,Twitter,全球加速
-  - RULE-SET,Game,游戏平台
-  - RULE-SET,ProxyLite,全球加速
+  - RULE-SET,OpenAi,美国节点
+  - RULE-SET,GlobalMedia,美国节点
+  - RULE-SET,Apple,DIRECT
+  - RULE-SET,Github,美国节点
+  - RULE-SET,Microsoft,DIRECT
+  - RULE-SET,Google,美国节点
+  - RULE-SET,Telegram,香港节点
+  - RULE-SET,Twitter,美国节点
+  - RULE-SET,Game,美国节点
+  - RULE-SET,ProxyLite,美国节点
   - RULE-SET,ChinaIP,DIRECT
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Lan,DIRECT
