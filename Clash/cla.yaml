@@ -5,9 +5,6 @@ proxy-groups:
   - {name: 手动切换, type: select, include-all: true, icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Static.png }
   - {name: 香港节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "港|HK|(?i)Hong", icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/HK.png }             
   - {name: 日本节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "日|东京|JP|(?i)Japan", icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/JP.png }
-  - {name: 台湾节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "台|湾|TW|(?i)Taiwan", icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/TW.png }
-  - {name: 美国节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "美|US|(?i)States|American", icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/US.png }
-  - {name: 狮城节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "新|坡|SG|(?i)Singapore", icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/SG.png }
   - {name: AdBlock,  type: select, proxies: [REJECT, DIRECT], icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Adblock.png }
   - {name: 兜底分流, type: select, proxies: [手动切换, DIRECT, 自动选择, 香港节点, 日本节点, 台湾节点, 美国节点, 狮城节点], icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Final.png }
 
