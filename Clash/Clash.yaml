@@ -1,6 +1,7 @@
+#Clash分流配置 #Dannis自用配置
+#配置链接 https://raw.githubusercontent.com/DannisJay/maty/refs/heads/main/Clash/Clash.yaml
 
 proxy-groups:
-  
 #节点分组
   - {name: 手动切换, type: select, include-all: true, icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/Static.png }
   - {name: 香港节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "港|HK|(?i)Hong", icon: https://ghp.ci/https://raw.githubusercontent.com/Orz-3/mini/master/Color/HK.png }             
