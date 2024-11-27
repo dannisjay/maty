@@ -77,6 +77,7 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Google/Google.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝙂𝙤𝙤𝙜𝙡𝙚, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Telegram/Telegram.list, policy=𝙃𝙤𝙣𝙜 𝙆𝙤𝙣𝙜, tag=𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/TikTok/TikTok.list, policy=𝙅𝙖𝙥𝙖𝙣, tag=𝙏𝙞𝙠𝙏𝙤𝙠, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/LinkedIn/LinkedIn.list, policy=𝙐𝙣𝙞𝙩𝙚𝙙 𝙎𝙩𝙖𝙩𝙚𝙨, tag=𝙇𝙞𝙣𝙠𝙚𝙙𝙞𝙣, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Alibaba/Alibaba_Domain.list, policy=DIRECT, tag=𝘼𝙡𝙞𝙗𝙖𝙗𝙖, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/Microsoft/Microsoft.list, policy=DIRECT, tag=𝙈𝙞𝙘𝙧𝙤𝙨𝙤𝙛𝙩, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Loon/AppleID/AppleID.list, policy=DIRECT, tag=𝘼𝙥𝙥𝙡𝙚𝙞𝙙, enabled=true
