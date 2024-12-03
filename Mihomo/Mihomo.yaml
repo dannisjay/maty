@@ -1,5 +1,5 @@
 #Mihomo分流配置 #Dannis自用配置
-#配置链接 https://raw.githubusercontent.com/DannisJay/maty/refs/heads/main/Clash/Clash.yaml
+#配置链接 https://raw.githubusercontent.com/DannisJay/Maty/refs/heads/main/Mihomo/Mihomo.yaml
 
 port: 7890
 socks-port: 7891
