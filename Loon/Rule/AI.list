@@ -1,5 +1,4 @@
 # 2024-11-05 10:10
-# https://kelee.one/Tool/Loon/Rule/AI.list
 
 # ChatGPT
 AND, ((DOMAIN-KEYWORD, chatgpt-async-webps-prod-eastus-), (DOMAIN-SUFFIX, webpubsub.azure.com))
