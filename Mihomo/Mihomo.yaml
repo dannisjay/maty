@@ -63,6 +63,7 @@ rules:
   - RULE-SET,Instagram,手动切换
   - RULE-SET,TikTok,手动切换
   - RULE-SET,Advertising,AdBlock
+  - DOMAIN-SUFFIX,publish.u-tools.cn,REJECT
   - RULE-SET,ChinaIP,DIRECT
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Lan,DIRECT
