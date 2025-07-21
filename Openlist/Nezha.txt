@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优化页面</title>
+    <script>
+        window.CustomBackgroundImage = "https://api.rls.ovh/adaptive"; /* 页面背景图 */
+        window.CustomMobileBackgroundImage = "https://api.rls.ovh/adaptive";
+        window.CustomLogo = "https://img.101514.xyz/file/1746593489278_nezha.png"; /* 自定义Logo */
+        window.ShowNetTransfer = "true"; /* 卡片显示上下行流量 */
+        window.CustomIllustration = 'https://img.101514.xyz/file/1746597038106_ikun.png'; /* 替换人物插图 */
+        window.CustomDesc = "哒哒的马蹄"; /* 自定义描述 */
+        window.ForceTheme = 'light';
+
+        // 雪花效果（可以根据设备调整数量）
+        const snowflakeCharacters = ["✻", "✼", "✽", "✾"]; // 不同风格的雪花符号
+
+        function createSnowflake() {
+            const snowflake = document.createElement("div");
+            snowflake.className = "snowflake";
+            snowflake.textContent = snowflakeCharacters[Math.floor(Math.random() * snowflakeCharacters.length)];
+            snowflake.style.left = Math.random() * 100 + "vw";
+            snowflake.style.animationDuration = 4 + Math.random() * 4 + "s"; // 速度适中
+            snowflake.style.fontSize = 10 + Math.random() * 20 + "px";
+            snowflake.style.opacity = 0.5 + Math.random() * 0.5; // 变化不透明度
+            document.body.appendChild(snowflake);
+
+            // 动画结束后移除雪花
+            snowflake.addEventListener("animationend", () => {
+                snowflake.remove();
+            });
+        }
+
+        function initializeSnowflakes(count) {
+            const interval = 500;
+            let activeSnowflakes = 0;
+
+            const createBatch = () => {
+                if (activeSnowflakes < count) {
+                    createSnowflake();
+                    activeSnowflakes++;
+                }
+            };
+
+            setInterval(createBatch, interval);
+        }
+
+        // 根据设备调整雪花数量
+        const isMobile = window.innerWidth <= 768;
+        const snowflakeCount = isMobile ? 50 : 100;
+
+        initializeSnowflakes(snowflakeCount);
+    </script>
+<!-- 网页鼠标点击特效 - 核心价值观关键字 -->
+<script>
+    (function () {
+        var a_idx = 0;
+        window.onclick = function (event) {
+            var a = new Array("❤富强❤", "❤民主❤", "❤文明❤", "❤和谐❤", "❤自由❤", "❤平等❤", "❤公正❤", "❤法治❤", "❤爱国❤",
+                "❤敬业❤", "❤诚信❤", "❤友善❤");
+            var heart = document.createElement("b"); //创建b元素
+            heart.onselectstart = new Function('event.returnValue=false'); //防止拖动
+
+            document.body.appendChild(heart).innerHTML = a[a_idx]; //将b元素添加到页面上
+            a_idx = (a_idx + 1) % a.length;
+            heart.style.cssText = "position: fixed;left:-100%;"; //给p元素设置样式
+
+            var f = 13, // 字体大小
+                x = event.clientX - f / 2 - 30, // 横坐标
+                y = event.clientY - f, // 纵坐标
+                c = randomColor(), // 随机颜色
+                a = 1, // 透明度
+                s = 0.8; // 放大缩小
+
+            var timer = setInterval(function () { //添加定时器
+                if (a <= 0) {
+                    document.body.removeChild(heart);
+                    clearInterval(timer);
+                } else {
+                    heart.style.cssText = "font-size:16px;cursor: default;position: fixed;color:" +
+                        c + ";left:" + x + "px;top:" + y + "px;opacity:" + a + ";transform:scale(" +
+                        s + ");";
+
+                    y--;
+                    a -= 0.016;
+                    s += 0.002;
+                }
+            }, 15)
+        }
+        // 随机颜色
+        function randomColor() {
+            return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math
+                .random() * 255)) + ")";
+        }
+    }());
+</script>
+    <style>
+        body {
+            margin: 0;
+            background: transparent;
+            overflow-x: hidden;
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 10px;
+            animation: fall linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateX(0px) translateY(0px);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateX(20px) translateY(50vh);
+            }
+            100% {
+                transform: translateX(-20px) translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+</html>
