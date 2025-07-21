@@ -43,21 +43,24 @@ https://pic.re/images
    border-radius: 10px;
    overflow: hidden;
 }
-/*白天背景图*/
-.hope-ui-light {
-    background-image: url("https://api.onedrive.com/v1.0/shares/s!AmYhTDvKJtwlgk3NuEa0JM6Qy3xh/root/content") !important;
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-attachment:fixed;
-    background-position-x:center;
+/* 竖屏样式 */
+@media screen and (orientation: portrait) {
+  body {
+    background-image: url('https://api.rls.ovh/adaptive') !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
-/*夜间背景图*/
-.hope-ui-dark {
-    background-image: url("https://api.onedrive.com/v1.0/shares/s!AmYhTDvKJtwlgk3NuEa0JM6Qy3xh/root/content") !important;
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-attachment:fixed;
-    background-position-x:center;
+
+/* 横屏样式 */
+@media screen and (orientation: landscape) {
+  body {
+    background-image: url('https://api.rls.ovh/adaptive') !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
 /*主列表白天模式透明*/
 .obj-box.hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-igScBhH-css {
@@ -87,7 +90,8 @@ https://pic.re/images
 }
 
 /* 去除网站图标与搜索 */
-.hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-iiOacaA-css {display: none !important;}
+/* 删除或注释掉隐藏的代码 */
+/* .hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-iiOacaA-css {display: none !important;}
 }
 
 /*右下角侧边栏按钮透明 第一个是白天 第二个是夜间*/
