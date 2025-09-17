@@ -1,93 +1,261 @@
-<!--延迟加载-->
-<!--如果要写自定义内容建议都加到这个延迟加载的范围内-->
-<div id="customize" style="display: none;">
-    <div>
-        <!--音乐播放器-->
-        <meting-js fixed="true" autoplay="false" theme="#409EFF" list-folded="true" auto="http://163cn.tv/znfpeMh"></meting-js>
-       <!--评论模块还有下面的script也是-->
-        <center>
-<!--延迟加载范围到这里结束-->
-</div>
-<!--延迟加载配套使用JS-->
-<script>
-    let interval = setInterval(() => {
-        if (document.querySelector(".footer")) {
-            document.querySelector("#customize").style.display = "";
-            clearInterval(interval);
-        }
-    }, 200);
-</script>
+<!--Alist V3建议添加的，已经默认添加了，如果你的没有建议加上-->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=String.prototype.replaceAll"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
-<!-- 渐变背景初始化,如果要使用渐变背景把下面的那一行注释去掉即可-->
-<!-- 下面的几行都是渐变的一套,自定义头部内还有一个关联的自定义CSS -->
-<!--<canvas id="canvas-basic"></canvas> -->
-<script src="https://npm.elemecdn.com/granim@2.0.0/dist/granim.min.js"></script>
-<script>
-var granimInstance = new Granim({
-    element: '#canvas-basic',
-    direction: 'left-right',
-    isPausedWhenNotInView: true,
-    states : {
-        "default-state": {
-            gradients: [
-                ['#a18cd1', '#fbc2eb'],
-                 ['#fff1eb', '#ace0f9'],
-                 ['#d4fc79', '#96e6a1'],
-                 ['#a1c4fd', '#c2e9fb'],
-                 ['#a8edea', '#fed6e3'],
-                 ['#9890e3', '#b1f4cf'],
-                 ['#a1c4fd', '#c2e9fb'],
-                 ['#fff1eb', '#ace0f9']
-           
-            ]
-        }
-    }
-});
-</script>
-<!-- 网页鼠标点击特效 - 核心价值观关键字 -->
-<script>
-    (function () {
-        var a_idx = 0;
-        window.onclick = function (event) {
-            var a = new Array("❤富强❤", "❤民主❤", "❤文明❤", "❤和谐❤", "❤自由❤", "❤平等❤", "❤公正❤", "❤法治❤", "❤爱国❤",
-                "❤敬业❤", "❤诚信❤", "❤友善❤");
-            var heart = document.createElement("b"); //创建b元素
-            heart.onselectstart = new Function('event.returnValue=false'); //防止拖动
+<!--引入字体，全局字体使用-->
+<link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-webfont@1.1.0/lxgwwenkai-regular.css" />
 
-            document.body.appendChild(heart).innerHTML = a[a_idx]; //将b元素添加到页面上
-            a_idx = (a_idx + 1) % a.length;
-            heart.style.cssText = "position: fixed;left:-100%;"; //给p元素设置样式
+<!--评论系统使用的js-->
+<script src='https://unpkg.com/valine/dist/Valine.min.js'></script>
 
-            var f = 13, // 字体大小
-                x = event.clientX - f / 2 - 30, // 横坐标
-                y = event.clientY - f, // 纵坐标
-                c = randomColor(), // 随机颜色
-                a = 1, // 透明度
-                s = 0.8; // 放大缩小
+<!-- Font6，自定义底部使用和看板娘使用的图标和字体文件-->
+<link type='text/css' rel="stylesheet" href="https://npm.elemecdn.com/font6pro@6.0.1/css/fontawesome.min.css" media='all'>
+<link href="https://npm.elemecdn.com/font6pro@6.0.1/css/all.min.css" rel="stylesheet">
 
-            var timer = setInterval(function () { //添加定时器
-                if (a <= 0) {
-                    document.body.removeChild(heart);
-                    clearInterval(timer);
-                } else {
-                    heart.style.cssText = "font-size:16px;cursor: default;position: fixed;color:" +
-                        c + ";left:" + x + "px;top:" + y + "px;opacity:" + a + ";transform:scale(" +
-                        s + ");";
+<!--音乐播放器所用的文件-->
+<!-- require APlayer -->
+<link rel="stylesheet" href="https://npm.elemecdn.com/aplayer@1.10.1/dist/APlayer.min.css">
+<script src="https://npm.elemecdn.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://npm.elemecdn.com/meting2@0.0.1/js/Meting.min.js"></script>
 
-                    y--;
-                    a -= 0.016;
-                    s += 0.002;
-                }
-            }, 15)
-        }
-        // 随机颜色
-        function randomColor() {
-            return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math
-                .random() * 255)) + ")";
-        }
-    }());
-</script>
+<!-- Font6，自定义底部使用和看板娘使用的图标和字体文件-->
+<link type='text/css' rel="stylesheet" href="https://npm.elemecdn.com/font6pro@6.0.1/css/fontawesome.min.css" media='all'>
+<link href="https://npm.elemecdn.com/font6pro@6.0.1/css/all.min.css" rel="stylesheet">
+<style>
+/* 去除通知栏 右上角 X */
 
-<script src="https://cdn.jsdelivr.net/gh/mocchen/cssmeihua/js/yanhuabowen.js"></script>
-<span class="js-cursor-container"></span>
-<script src="https://cdn.jsdelivr.net/gh/mocchen/cssmeihua/js/xiaoxingxing.js"></script>
+/* 图片API用法点进去都会有食用说明的
+  樱花：https://www.dmoe.cc
+  夏沫：https://cdn.seovx.com
+  搏天：https://api.btstu.cn/doc/sjbz.php
+  姬长信：https://github.com/insoxin/API
+  保罗：https://api.paugram.com
+  岁月小筑：https://img.xjh.me
+  东方Project：https://img.paulzzh.com
+https://www.loliapi.com/acg/
+https://hefollo.com/apis.php?type=电脑端-动漫图片
+https://t.alcy.cc/moe
+https://3650000.xyz/
+https://pic.re/images
+  */
+#video-container {
+   border-radius: 10px;
+   overflow: hidden;
+}
+/* 竖屏样式 */
+@media screen and (orientation: portrait) {
+  body {
+    background-image: url('https://www.loliapi.com/acg/pe/') !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+/* 横屏样式 */
+@media screen and (orientation: landscape) {
+  body {
+    background-image: url('https://img.10520.xyz/1753955839099.png') !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+/*主列表白天模式透明*/
+.obj-box.hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-igScBhH-css {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+}
+/*主列表夜间模式透明*/
+ .obj-box.hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-iigjoxS-css {
+    background-color:rgb(0 0 0 / 50%)!important;
+}
+
+/*readme白天模式透明*/
+.hope-c-PJLV.hope-c-PJLV-ikSuVsl-css {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+}
+/*readme夜间模式透明*/
+.hope-c-PJLV.hope-c-PJLV-iiuDLME-css {
+    background-color:rgb(0 0 0 / 50%)!important;
+}
+
+/*顶部右上角切换按钮透明*/
+.hope-ui-light .hope-c-ivMHWx-hZistB-cv.hope-icon-button {
+    background-color: rgba(255, 255, 255, 0.3)!important;
+}
+.hope-ui-dark .hope-c-ivMHWx-hZistB-cv.hope-icon-button {
+    background-color:rgb(0 0 0 / 10%)!important;
+	
+}
+
+/* 去除网站图标与搜索 */
+/* 删除或注释掉隐藏的代码 */
+/* .hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-iiOacaA-css {display: none !important;}
+}
+
+/*右下角侧边栏按钮透明 第一个是白天 第二个是夜间*/
+.hope-ui-light .hope-c-PJLV-ijgzmFG-css {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+}
+.hope-ui-dark .hope-c-PJLV-ijgzmFG-css {
+    background-color:rgb(0 0 0 / 50%)!important;
+}
+
+/*白天模式代码块透明*/
+.hope-ui-light pre {
+    background-color: rgba(255, 255, 255, 0.1)!important;
+}
+/*夜间模式代码块透明*/
+.hope-ui-dark pre {
+    background-color: rgba(255, 255, 255, 0)!important;
+}
+/*左侧侧边栏目录*/
+/*白天模式*/
+ .hope-ui-light .hope-c-PJLV-ieGWMbI-css {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+/*夜间模式*/
+ .hope-ui-dark .hope-c-PJLV-ieGWMbI-css {
+    background-color:rgb(0 0 0 / 50%)!important;
+}
+/* 返回顶部 */
+ .hope-c-PJLV-ihVEsOa-css {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+.hope-ui-dark .hope-c-PJLV-ihVEsOa-css {
+    background-color:rgb(0 0 0 / 50%)!important;
+}
+
+/*正常情况未使用吸附功能*/
+/*导航条*/
+/*白天模式*/
+ .hope-ui-light .hope-c-PJLV-idaeksS-css {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+    border-radius: 10px !important;
+}
+/*夜间模式*/
+ .hope-ui-dark .hope-c-PJLV-idaeksS-css {
+    background-color:rgb(0 0 0 / 50%)!important;
+    border-radius: 10px !important;
+}
+/*顶栏*/
+ .hope-c-PJLV-ikaMhsQ-css {
+    background: rgba(255, 255, 255, 0) !important;
+}
+
+
+/* 吸附到页面顶部 */
+/*顶部*/
+ .hope-c-PJLV-icWrYmg-css {
+    background: rgba(255, 255, 255, 0) !important;
+}
+/*导航条*/
+ .hope-c-PJLV-icKsjdm-css::after {
+    background: rgba(255, 255, 255, 0) !important;
+}
+/*白天模式*/
+ .hope-ui-light .hope-c-PJLV-icKsjdm-css {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+    border-radius: 10px !important;
+}
+/*夜间模式*/
+ .hope-ui-dark .hope-c-PJLV-icKsjdm-css {
+    background-color:rgb(0 0 0 / 50%)!important;
+    border-radius: 10px !important;
+}
+
+/*仅吸附导航栏*/
+/*导航条*/
+.hope-c-PJLV-ifdXShc-css::after {
+    background: rgba(255, 255, 255, 0) !important;
+}
+/*白天模式*/
+ .hope-ui-light .hope-c-hrsMRY {
+    background-color: rgba(255, 255, 255, 0.5)!important;
+    border-radius: 10px !important;
+}
+/*夜间模式*/
+ .hope-ui-dark .hope-c-hrsMRY {
+    background-color:rgb(0 0 0 / 50%)!important;
+    border-radius: 10px !important;
+}
+
+/*底部CSS，.App .table这三个一起的*/
+ dibu {
+    border-top: 0px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.App {
+    min-height: 85vh;
+}
+.table {
+    margin: auto;
+}
+
+/*去掉底部*/
+.footer {
+    display: none!important;
+}
+
+/*全局字体*/
+ * {
+    font-family:LXGW WenKai
+}
+* {
+    font-weight:bold
+}
+body {
+    font-family: LXGW WenKai;
+}
+
+
+/*以下为评论系统专用*/
+/*适配大小契合度*/
+.newValine {
+    width: min(96%, 940px);
+    flex-direction: column;
+    row-gap: var(--hope-space-2);
+    border-radius: var(--hope-radii-xl);
+    padding: var(--hope-space-2);
+    box-shadow: var(--hope-shadows-lg);
+}
+/*评论区 - 白天模式透明度*/
+.hope-ui-light .newValine {
+    background-color: rgba(255, 255, 255, 0.8)!important;
+}
+/*评论区 - 夜间模式透明度*/
+.hope-ui-dark .newValine {
+    background-color:rgb(0 0 0 / 80%)!important;
+}
+/*输入栏里面跳舞的小人背景图*/
+.vedit {
+    background-image:url(https://cdn.jsdelivr.net/gh/anwen-anyi/imgAnwen/images/OuNiJiang.gif);
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:right bottom;
+    transition:all 0.25s ease-in-out 0s;
+}
+textarea#comment-textarea:focus {
+    background-position-y:120px;
+    transition:all 0.25s ease-in-out 0s;
+}
+
+
+/*渐变背景CSS*/
+ #canvas-basic {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -999;
+}
+</style>
