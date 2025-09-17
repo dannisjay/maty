@@ -46,7 +46,7 @@ https://pic.re/images
 /* 竖屏样式 */
 @media screen and (orientation: portrait) {
   body {
-    background-image: url('https://api.rls.ovh/adaptive') !important;
+    background-image: url('https://www.loliapi.com/acg/pe/') !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -56,7 +56,7 @@ https://pic.re/images
 /* 横屏样式 */
 @media screen and (orientation: landscape) {
   body {
-    background-image: url('https://api.rls.ovh/adaptive') !important;
+    background-image: url('https://img.10520.xyz/1753955839099.png') !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
