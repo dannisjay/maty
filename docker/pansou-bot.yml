@@ -1,0 +1,61 @@
+
+
+# Pansou Telegram Bot 🔍
+基于 Telegram 的网盘搜索机器人，对接 pansou 搜索 API，支持快速查询资源。
+### Github地址：https://github.com/dannisjay/pansou-bot
+## 前置准备
+1. 申请 Telegram 机器人 Token（通过 @BotFather 获取）
+2. 确保 pansou 账号（用户名/密码）可正常访问搜索 API
+3. 本地安装 Docker 和 Docker Compose
+
+## 部署步骤
+### 1. 创建项目目录
+
+```bash
+mkdir -p /opt/pansou-bot/logs && touch /opt/pansou-bot/.env && touch /opt/pansou-bot/docker-compose.yml
+```
+
+### 2. 配置环境变量（.env 文件）
+在已创建的.env 文件，填入以下内容（替换为你的实际信息）：
+```bash
+# Telegram Bot配置
+BOT_TOKEN=你的Telegram机器人Token  
+
+# 盘搜API配置
+SEARCH_API_URL=http://ip:端口/api/search  #反代请用域名
+PANSOU_USERNAME=账户名  
+PANSOU_PASSWORD=密码
+
+# TG ID白名单（用逗号分隔，不要有空格），留空则所有人都可访问
+ALLOWED_USERS=
+
+```
+### 3. 编写 docker-compose.yml
+
+```yaml
+services:
+  pansou-bot:
+    image: dannis1514/pansou-bot:latest
+    container_name: pansou-bot
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs #目录持久化
+    env_file:
+      - .env
+    environment:
+    # 可选：设备访问受限可添加代理
+    # - HTTP_PROXY=http://proxy_ip:port
+    # - HTTPS_PROXY=https://proxy_ip:port
+      - TZ=Asia/Shanghai
+    networks:
+      - pansou-network
+
+networks:
+  pansou-network:
+    driver: bridge
+```
+
+### 4. 启动服务
+```bash
+docker compose up -d
+```
