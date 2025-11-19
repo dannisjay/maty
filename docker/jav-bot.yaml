@@ -1,0 +1,39 @@
+Jav-bot
+
+1. .env
+
+# Telegram Bot 配置
+TG_BOT_TOKEN=你的tg_bot_token
+# 访问控制配置
+ALLOWED_USER_IDS=           # 允许的用户tg id，用逗号分隔
+# 网络代理配置（可选）
+# HTTP_PROXY=http://proxy_ip:port
+# HTTPS_PROXY=http://proxy_ip:port
+# 其他配置
+TZ=Asia/Shanghai
+LOG_LEVEL=INFO
+
+2.docker-compose.yml
+
+services:
+  jav-bot:
+    image: dannis1514/jav-bot:latest
+    container_name: jav-bot
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - TZ=Asia/Shanghai
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+    volumes:
+      - ./logs:/app/logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+        max-file: "3"
