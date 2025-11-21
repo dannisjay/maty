@@ -4,13 +4,13 @@ session_start();
 
 // 配置区域
 $config = [
-    'admin_token' => '【token】',  #emby_api_token
-    'server_url' => 'http://【server】:【port】',  #emby内网地址
-    'preset_userid' => '【preset_userid】',   # 普通用户ID
-    // #访问http://你的IP:8096/emby/system/info/public 获取你的id(非管理员账户)
+    'admin_token' => 'token',  #emby_api_token
+    'server_url' => 'http://emby:8096',  #emby地址
+    'preset_userid' => 'emby_id',   # 普通用户ID
+    //  访问 http://你的IP:8096/emby/system/info/public 获取你的id(非管理员账户)
     'invite_file' => 'invite_codes.json',     #自动生成，记得给权限
-    'emby_login_url' => 'https://your-emby-server.com', #emby公网地址
-    'admin_password' => 'admin123',  #管理员密码
+    'emby_login_url' => 'https://emby.com', #emby公网地址
+    'admin_password' => 'admin',  #管理员密码
     // 自定义图片URL - 替换为你想要的图片链接
     'custom_image' => 'https://www.loliapi.com/acg/pe/'
 ];
@@ -97,10 +97,16 @@ if (isset($_POST['admin_login'])) {
 }
 
 // 处理管理操作
+$new_code = '';
+$invite_link = '';
 if ($is_admin && isset($_GET['action'])) {
     if ($_GET['action'] === 'generate') {
         $note = $_POST['note'] ?? '';
         $new_code = createInviteCode($note);
+        // 生成包含邀请码的注册链接
+        $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $base_url = preg_replace('/\?.*/', '', $base_url); // 移除参数
+        $invite_link = $base_url . "?invite_code=" . $new_code;
         $message = "新邀请码生成成功：<strong>{$new_code}</strong>";
     } elseif ($_GET['action'] === 'delete' && isset($_GET['code'])) {
         if (deleteInviteCode($_GET['code'])) {
@@ -463,6 +469,29 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
                 border-radius: 8px;
                 margin-bottom: 20px;
             }
+
+            .invite-link-section {
+                margin-top: 20px;
+                padding: 20px;
+                background: #f8f9fa;
+                border-radius: 12px;
+                border: 1px solid #e5e7eb;
+            }
+
+            .link-container {
+                display: flex;
+                gap: 10px;
+                margin: 15px 0;
+            }
+
+            .link-container input {
+                flex: 1;
+                padding: 12px;
+                border: 2px solid #e5e7eb;
+                border-radius: 8px;
+                background: white;
+                font-size: 14px;
+            }
         </style>
     </head>
     <body>
@@ -488,6 +517,27 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
                         </div>
                         <button type="submit" class="btn">生成邀请码</button>
                     </form>
+                    
+                    <?php if (!empty($new_code)): ?>
+                    <div class="invite-link-section">
+                        <h4>邀请链接</h4>
+                        <p>复制以下链接发送给用户，打开后邀请码会自动填入：</p>
+                        <div class="link-container">
+                            <input type="text" id="inviteLink" value="<?php echo $invite_link; ?>" readonly>
+                            <button onclick="copyInviteLink()" class="btn" style="width: auto; padding: 12px 20px;">复制链接</button>
+                        </div>
+                        <small style="color: #6b7280;">用户打开链接后，邀请码字段会自动填充</small>
+                    </div>
+                    <script>
+                    function copyInviteLink() {
+                        var copyText = document.getElementById("inviteLink");
+                        copyText.select();
+                        copyText.setSelectionRange(0, 99999);
+                        document.execCommand("copy");
+                        alert("邀请链接已复制到剪贴板！");
+                    }
+                    </script>
+                    <?php endif; ?>
                 </div>
 
                 <div class="admin-section">
@@ -596,21 +646,8 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
             z-index: 10;
         }
 
-        .image-overlay h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .image-overlay p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 500px;
-        }
-
         .form-section {
             flex: 0 0 500px;
-            background: rgba(255, 255, 255, 0.45);
             background: white;
             display: flex;
             flex-direction: column;
@@ -727,7 +764,7 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
         .admin-btn {
             display: inline-block;
             background: rgba(110, 126, 234, 1);
-            color: white; /* 修复文字颜色 */
+            color: white;
             text-decoration: none;
             padding: 12px 24px;
             border-radius: 25px;
@@ -742,46 +779,46 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
             background: rgba(255,255,255,0.25);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            color: white; /* 确保hover时文字也是白色 */
+            color: white;
         }
 
         @media (max-width: 768px) {
-        .container {
-            flex-direction: column;
-            position: relative;
-            min-height: 100vh;
+            .container {
+                flex-direction: column;
+                position: relative;
+                min-height: 100vh;
+            }
+        
+            .image-section {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+            }
+         
+            .form-section {
+                position: relative;
+                z-index: 2;
+                background: rgba(255, 255, 255, 0.4);
+                backdrop-filter: blur(10px);
+                margin: 20px;
+                border-radius: 20px;
+                flex: none;
+                padding: 30px;
+            }
+        
+            .brand-text {
+                top: 20px;
+                right: 20px;
+                font-size: 1.5rem;
+            }
+        
+            .image-overlay {
+                background: rgba(0, 0, 0, 0.2);
+            }
         }
-    
-        .image-section {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-     
-        .form-section {
-            position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            margin: 20px;
-            border-radius: 20px;
-            flex: none;
-            padding: 30px;
-        }
-    
-        .brand-text {
-            top: 20px;
-            right: 20px;
-            font-size: 1.5rem;
-        }
-    
-        .image-overlay {
-            background: rgba(0, 0, 0, 0.2);
-        }
-    }
     </style>
 </head>
 <body>
@@ -837,5 +874,16 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
             </div>
         </div>
     </div>
+
+    <script>
+    // 自动填充邀请码
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const inviteCode = urlParams.get('invite_code');
+        if (inviteCode) {
+            document.getElementById('invite_code').value = inviteCode.toUpperCase();
+        }
+    });
+    </script>
 </body>
 </html>
