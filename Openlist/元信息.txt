@@ -1,0 +1,17 @@
+<style>
+  body {
+    text-align: center;
+  }
+</style>
+
+<!-- 完整的a标签包裹图片 -->
+<a href="https://dannis.xyz/@manage" target="_self">
+  <img 
+    src="https://img.101514.xyz/file/1746593489278_nezha.png" 
+    alt="哒哒小站logo" 
+    width="150" 
+    style="border-radius:50%;display:block;margin:10px auto;cursor:pointer;"
+  >
+</a>
+
+<h2>哒哒的马蹄</h2>
