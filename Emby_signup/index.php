@@ -4,13 +4,13 @@ session_start();
 
 // 配置区域
 $config = [
-    'admin_token' => 'token',  #emby_api_token
-    'server_url' => 'http://emby:8096',  #emby地址
-    'preset_userid' => 'emby_id',   # 普通用户ID
+    'admin_token' => 'token',     #emby_api_token
+    'server_url' => 'http://emby:8096',            #emby地址
+    'preset_userid' => 'emby_id',   #普通用户ID
     //  访问 http://你的IP:8096/emby/system/info/public 获取你的id(非管理员账户)
-    'invite_file' => 'invite_codes.json',     #自动生成，记得给权限
-    'emby_login_url' => 'https://emby.com', #emby公网地址
-    'admin_password' => 'admin',  #管理员密码
+    'invite_file' => 'invite_codes.json',     #自动生成，给目录权限
+    'emby_login_url' => 'https://emby.com',  #emby公网地址
+    'admin_password' => 'admin',         #管理员密码
     // 自定义图片URL - 替换为你想要的图片链接
     'custom_image' => 'https://www.loliapi.com/acg/pe/'
 ];
@@ -44,6 +44,18 @@ function validateInviteCode($code) {
     $codes = loadInviteCodes();
     $code = strtoupper(trim($code));
     if (isset($codes[$code]) && $codes[$code]['used'] === false) {
+        // 这里只验证，不标记为已使用
+        return true;
+    }
+    return false;
+}
+
+// 标记邀请码为已使用
+function markInviteCodeUsed($code) {
+    global $config;
+    $codes = loadInviteCodes();
+    $code = strtoupper(trim($code));
+    if (isset($codes[$code])) {
         $codes[$code]['used'] = true;
         $codes[$code]['used_at'] = date('Y-m-d H:i:s');
         saveInviteCodes($codes);
@@ -77,6 +89,13 @@ function deleteInviteCode($code) {
     return false;
 }
 
+// 生成注册链接
+function generateRegisterLink($invite_code) {
+    $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $base_url = preg_replace('/\?.*/', '', $base_url); // 移除参数
+    return $base_url . "?invite_code=" . $invite_code;
+}
+
 // 处理管理员登录
 $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true;
 
@@ -96,18 +115,30 @@ if (isset($_POST['admin_login'])) {
     }
 }
 
-// 处理管理操作
+// 处理管理操作 - 彻底修复重复生成bug
 $new_code = '';
 $invite_link = '';
 if ($is_admin && isset($_GET['action'])) {
     if ($_GET['action'] === 'generate') {
-        $note = $_POST['note'] ?? '';
-        $new_code = createInviteCode($note);
-        // 生成包含邀请码的注册链接
-        $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $base_url = preg_replace('/\?.*/', '', $base_url); // 移除参数
-        $invite_link = $base_url . "?invite_code=" . $new_code;
-        $message = "新邀请码生成成功：<strong>{$new_code}</strong>";
+        // 使用POST重定向模式防止重复提交
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $note = $_POST['note'] ?? '';
+            $new_code = createInviteCode($note);
+            // 生成包含邀请码的注册链接
+            $invite_link = generateRegisterLink($new_code);
+            $message = "新邀请码生成成功：<strong>{$new_code}</strong>";
+            
+            // 重定向到GET请求，防止刷新重复提交
+            header('Location: ?admin=1&generated=' . urlencode($new_code));
+            exit;
+        } else {
+            // 如果是GET请求且有generated参数，显示成功消息
+            if (isset($_GET['generated'])) {
+                $new_code = $_GET['generated'];
+                $invite_link = generateRegisterLink($new_code);
+                $message = "新邀请码生成成功：<strong>{$new_code}</strong>";
+            }
+        }
     } elseif ($_GET['action'] === 'delete' && isset($_GET['code'])) {
         if (deleteInviteCode($_GET['code'])) {
             $message = "邀请码删除成功";
@@ -124,55 +155,95 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
     $passwd = $_POST['passwd'];
     $confirm_passwd = $_POST['confirm_passwd'];
     
-    // 验证邀请码
+    // 验证邀请码 - 这里只验证不标记
     if (!validateInviteCode($invite_code)) {
         $message = '邀请码无效或已被使用！';
     }
-    // 输入验证
+    // 输入验证 - 在验证邀请码后进行
     else if (!preg_match("/^[a-zA-Z0-9]{4,}$/", $username)) {
         $message = '用户名只允许包含数字和字母且至少需要4位！';
     } else if ($passwd !== $confirm_passwd) {
         $message = '两次输入的密码不一致！';
-    } else if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/", $passwd)) {
-        $message = '密码至少需要8位且必须包含数字和字母！';
+    } else if (strlen($passwd) < 4) {
+        $message = '密码至少需要4位！';
     } else {
-        // 注册账号
+        // 所有验证通过后，才标记邀请码为已使用
+        markInviteCodeUsed($invite_code);
+        
+        // 注册账号 - 第一步：创建用户
         $url1 = "{$config['server_url']}/emby/Users/New?X-Emby-Token={$config['admin_token']}";
         $data1 = array('Name' => $username, 'CopyFromUserId' => $config['preset_userid'], 'UserCopyOptions' => 'UserPolicy,UserConfiguration');
         $options1 = array(
             'http' => array(
                 'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
                 'method'  => 'POST',
-                'content' => http_build_query($data1)
+                'content' => http_build_query($data1),
+                'timeout' => 10
             )
         );
         $context1  = stream_context_create($options1);
-        $result1 = file_get_contents($url1, false, $context1);
+        $result1 = @file_get_contents($url1, false, $context1);
         
         if ($result1 === FALSE) {
-            $message = '服务器连接失败！';
+            $error = error_get_last();
+            $message = '服务器连接失败！错误信息: ' . ($error['message'] ?? '未知错误');
+            // 注册失败，恢复邀请码状态
+            restoreInviteCode($invite_code);
         } else {
             $response1 = json_decode($result1, true);
-            $userid = $response1['Id'];
             
-            if ($userid === NULL) {
-                $message = "用户名已存在！";
+            // 检查JSON解析是否成功
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                $message = "服务器响应格式错误！响应内容: " . htmlspecialchars($result1);
+                restoreInviteCode($invite_code);
+            } 
+            // 检查API是否返回错误
+            else if (isset($response1['error'])) {
+                $message = "创建用户失败: " . $response1['error'];
+                restoreInviteCode($invite_code);
+            }
+            // 检查是否成功获取用户ID
+            else if (!isset($response1['Id']) || empty($response1['Id'])) {
+                $message = "创建用户失败：未获取到用户ID。响应: " . htmlspecialchars($result1);
+                restoreInviteCode($invite_code);
             } else {
+                $userid = $response1['Id'];
+                
+                // 第二步：设置密码
                 $url2 = "{$config['server_url']}/emby/Users/{$userid}/Password?X-Emby-Token={$config['admin_token']}";
-                $data2 = array('NewPw' => $passwd);
+                $data2 = array('NewPw' => $passwd, 'CurrentPw' => '');
                 $options2 = array(
                     'http' => array(
                         'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
                         'method'  => 'POST',
-                        'content' => http_build_query($data2)
+                        'content' => http_build_query($data2),
+                        'timeout' => 10
                     )
                 );
                 $context2  = stream_context_create($options2);
-                $result2 = file_get_contents($url2, false, $context2);
+                $result2 = @file_get_contents($url2, false, $context2);
                 
-                $message = '注册完成！';
+                if ($result2 === FALSE) {
+                    $error = error_get_last();
+                    $message = '账户创建成功，但设置密码失败！错误: ' . ($error['message'] ?? '未知错误') . '。请尝试使用空密码登录后修改。';
+                } else {
+                    $emby_login_url = $config['emby_login_url'];
+                    $message = '注册完成，<a href="' . $emby_login_url . '" style="color: #065f46; text-decoration: underline; font-weight: bold;">点击此处登录Emby</a>！';
+                }
             }
         }
+    }
+}
+
+// 恢复邀请码状态的函数
+function restoreInviteCode($code) {
+    global $config;
+    $codes = loadInviteCodes();
+    $code = strtoupper(trim($code));
+    if (isset($codes[$code])) {
+        $codes[$code]['used'] = false;
+        $codes[$code]['used_at'] = null;
+        saveInviteCodes($codes);
     }
 }
 
@@ -417,6 +488,22 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
                 color: #065f46;
             }
 
+            .copy-btn {
+                background: #3b82f6;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 6px;
+                cursor: pointer;
+                margin-left: 10px;
+                text-decoration: none;
+                font-size: 12px;
+            }
+
+            .copy-btn:hover {
+                background: #2563eb;
+            }
+
             .delete-btn {
                 background: #ef4444;
                 color: white;
@@ -424,7 +511,7 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
                 padding: 6px 12px;
                 border-radius: 6px;
                 cursor: pointer;
-                margin-left: auto;
+                margin-left: 10px;
                 text-decoration: none;
                 font-size: 12px;
             }
@@ -528,15 +615,6 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
                         </div>
                         <small style="color: #6b7280;">用户打开链接后，邀请码字段会自动填充</small>
                     </div>
-                    <script>
-                    function copyInviteLink() {
-                        var copyText = document.getElementById("inviteLink");
-                        copyText.select();
-                        copyText.setSelectionRange(0, 99999);
-                        document.execCommand("copy");
-                        alert("邀请链接已复制到剪贴板！");
-                    }
-                    </script>
                     <?php endif; ?>
                 </div>
 
@@ -561,9 +639,12 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
                                             <small>备注: <?php echo htmlspecialchars($info['note']); ?></small>
                                         <?php endif; ?>
                                     </div>
-                                    <?php if (!$info['used']): ?>
-                                        <a href="?admin=1&action=delete&code=<?php echo $code; ?>" class="delete-btn" onclick="return confirm('确定删除邀请码 <?php echo $code; ?>？')">删除</a>
-                                    <?php endif; ?>
+                                    <div style="display: flex; gap: 5px;">
+                                        <?php if (!$info['used']): ?>
+                                            <button class="copy-btn" onclick="copyInviteCodeLink('<?php echo $code; ?>')">复制链接</button>
+                                            <a href="?admin=1&action=delete&code=<?php echo $code; ?>" class="delete-btn" onclick="return confirm('确定删除邀请码 <?php echo $code; ?>？')">删除</a>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -575,6 +656,33 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
                 <a href="?action=logout">← 退出管理</a>
             </div>
         </div>
+
+        <script>
+        function copyInviteLink() {
+            var copyText = document.getElementById("inviteLink");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            alert("邀请链接已复制到剪贴板！");
+        }
+
+        function copyInviteCodeLink(code) {
+            // 生成注册链接
+            var baseUrl = window.location.href.split('?')[0];
+            var inviteLink = baseUrl + "?invite_code=" + code;
+            
+            // 创建临时输入框
+            var tempInput = document.createElement("input");
+            tempInput.value = inviteLink;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            
+            alert("邀请码 " + code + " 的注册链接已复制到剪贴板！");
+        }
+        </script>
     </body>
     </html>
     <?php
@@ -782,6 +890,43 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
             color: white;
         }
 
+        .message {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .success {
+            background: #d1fae5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .success a {
+            color: #065f46;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .success a:hover {
+            color: #047857;
+        }
+
+        .form-group label[for="passwd"]::after,
+        .form-group label[for="confirm_passwd"]::after,
+        .form-group label[for="invite_code"]::after {
+            content: " *";
+            color: #ef4444;
+        }
+
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -840,6 +985,12 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
             </div>
 
             <div class="form-container">
+                <?php if (isset($message)): ?>
+                    <div class="<?php echo strpos($message, '完成') !== false ? 'success' : 'message'; ?>">
+                        <?php echo $message; ?>
+                    </div>
+                <?php endif; ?>
+
                 <form method="post" action="">
                     <div class="form-group">
                         <label for="invite_code">邀请码</label>
@@ -847,7 +998,7 @@ if (isset($_GET['admin']) && $_GET['admin'] == '1' && $is_admin) {
                     </div>
                     <div class="form-group">
                         <label for="username">用户名</label>
-                        <input type="text" id="username" name="username" required placeholder="请输入用户名" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>">
+                        <input type="text" id="username" name="username" required placeholder="仅限字母和数字" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>">
                     </div>
                     <div class="form-group">
                         <label for="passwd">密码</label>
