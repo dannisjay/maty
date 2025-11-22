@@ -1,0 +1,13 @@
+<script>
+    let interval = setInterval(() => {
+        if (document.querySelector(".footer")) {
+            document.querySelector("#customize").style.display = "";
+            clearInterval(interval);
+        }
+    }, 200);
+</script>
+
+<div id="customize" style="display: none;">
+    <script type="text/javascript" src="https://myhkw.cn/player/js/jquery.min.js"></script>
+    <script type="text/javascript" id="myhk" src="https://myhkw.cn/api/player/1763339545109" key="1763339545109" m="1"></script>
+</div>
