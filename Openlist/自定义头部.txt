@@ -19,58 +19,35 @@
 <!-- require MetingJS -->
 <script src="https://npm.elemecdn.com/meting2@0.0.1/js/Meting.min.js"></script>
 
-<!-- Font6，自定义底部使用和看板娘使用的图标和字体文件-->
-<link type='text/css' rel="stylesheet" href="https://npm.elemecdn.com/font6pro@6.0.1/css/fontawesome.min.css" media='all'>
-<link href="https://npm.elemecdn.com/font6pro@6.0.1/css/all.min.css" rel="stylesheet">
 <style>
 /* 核心修改：全局宽度限制为1300px（居中显示，超出部分自动留白） */
 body {
-    max-width: 1300px; /* 整体最大宽度调整为1300px（原1400px） */
-    margin: 0 auto; /* 左右自动留白，实现居中 */
-    padding: 0 15px; /* 小屏幕下左右保留15px间距，避免内容贴边 */
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 15px;
 }
 
-/* 去除通知栏 右上角 X */
-
-/* 图片API用法点进去都会有食用说明的
-  樱花：https://www.dmoe.cc
-  夏沫：https://cdn.seovx.com
-  搏天：https://api.btstu.cn/doc/sjbz.php
-  姬长信：https://github.com/insoxin/API
-  保罗：https://api.paugram.com
-  岁月小筑：https://img.xjh.me
-  东方Project：https://img.paulzzh.com
-https://www.loliapi.com/acg/
-https://hefollo.com/apis.php?type=电脑端-动漫图片
-https://t.alcy.cc/moe
-https://3650000.xyz/
-https://pic.re/images
-  */
-#video-container {
-   border-radius: 10px;
-   overflow: hidden;
-}
-/* 竖屏样式 - 同步1300px宽度限制 */
+/* 竖屏样式 */
 @media screen and (orientation: portrait) {
   body {
     background-image: url('https://img.10520.xyz/1763521139192.jpg') !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    max-width: 1300px; /* 竖屏同步1300px宽度（原1400px） */
+    max-width: 1300px;
     margin: 0 auto;
     padding: 0 15px;
   }
 }
 
-/* 横屏样式 - 同步1300px宽度限制 */
+/* 横屏样式 */
 @media screen and (orientation: landscape) {
   body {
     background-image: url('https://www.loliapi.com/acg/pe/') !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    max-width: 1300px; /* 横屏同步1300px宽度（原1400px） */
+    max-width: 1300px;
     margin: 0 auto;
     padding: 0 15px;
   }
@@ -101,11 +78,6 @@ https://pic.re/images
     background-color:rgb(0 0 0 / 10%)!important;
 	
 }
-
-/* 去除网站图标与搜索 */
-/* 删除或注释掉隐藏的代码 */
-/* .hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-iiOacaA-css {display: none !important;}
-} */
 
 /*右下角侧边栏按钮透明 第一个是白天 第二个是夜间*/
 .hope-ui-light .hope-c-PJLV-ijgzmFG-css {
@@ -199,7 +171,7 @@ https://pic.re/images
     border-top: 0px;
     position: absolute;
     bottom: 0;
-    width: 100%; /* 底部宽度跟随全局1300px限制 */
+    width: 100%;
     margin: 0px;
     padding: 0px;
 }
@@ -230,13 +202,13 @@ body {
 /*以下为评论系统专用*/
 /*适配1300px全局宽度，留足留白避免贴边*/
 .newValine {
-    width: min(90%, 1170px); /* 评论区最大宽度1170px（为1300px的90%，原1260px） */
+    width: min(90%, 1170px);
     flex-direction: column;
     row-gap: var(--hope-space-2);
     border-radius: var(--hope-radii-xl);
     padding: var(--hope-space-2);
     box-shadow: var(--hope-shadows-lg);
-    margin: 0 auto; /* 评论区居中 */
+    margin: 0 auto;
 }
 /*评论区 - 白天模式透明度*/
 .hope-ui-light .newValine {
