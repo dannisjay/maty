@@ -1,0 +1,16 @@
+<script>
+    let interval = setInterval(() => {
+        if (document.querySelector(".footer")) {
+            document.querySelector("#customize").style.display = "";
+            clearInterval(interval);
+        }
+    }, 200);
+</script>
+
+<meting-js 
+    name="简单爱" 
+    artist="周杰伦" 
+    url="https://dannis.xyz/d/Other/CloudMusic/%E5%91%A8%E6%9D%B0%E4%BC%A6-%E7%AE%80%E5%8D%95%E7%88%B1.flac" 
+    cover="https://img.101514.xyz/file/1763810700457_jda.jpg"
+    fixed="true">
+</meting-js>
