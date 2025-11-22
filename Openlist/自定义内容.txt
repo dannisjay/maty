@@ -1,93 +1,62 @@
-<!--延迟加载-->
-<!--如果要写自定义内容建议都加到这个延迟加载的范围内-->
-<div id="customize" style="display: none;">
-    <div>
-        <!--音乐播放器-->
-        <meting-js fixed="true" autoplay="false" theme="#409EFF" list-folded="true" auto="https://y.qq.com/n/ryqq/playlist/3113529766"></meting-js>
-       <!--评论模块还有下面的script也是-->
-        <center>
-<!--延迟加载范围到这里结束-->
-</div>
-<!--延迟加载配套使用JS-->
 <script>
-    let interval = setInterval(() => {
-        if (document.querySelector(".footer")) {
-            document.querySelector("#customize").style.display = "";
-            clearInterval(interval);
-        }
-    }, 200);
+    let interval = setInterval(() => {
+        if (document.querySelector(".footer")) {
+            document.querySelector("#customize").style.display = "";
+            clearInterval(interval);
+        }
+    }, 200);
 </script>
 
-<!-- 渐变背景初始化,如果要使用渐变背景把下面的那一行注释去掉即可-->
-<!-- 下面的几行都是渐变的一套,自定义头部内还有一个关联的自定义CSS -->
-<!--<canvas id="canvas-basic"></canvas> -->
-<script src="https://npm.elemecdn.com/granim@2.0.0/dist/granim.min.js"></script>
-<script>
-var granimInstance = new Granim({
-    element: '#canvas-basic',
-    direction: 'left-right',
-    isPausedWhenNotInView: true,
-    states : {
-        "default-state": {
-            gradients: [
-                ['#a18cd1', '#fbc2eb'],
-                 ['#fff1eb', '#ace0f9'],
-                 ['#d4fc79', '#96e6a1'],
-                 ['#a1c4fd', '#c2e9fb'],
-                 ['#a8edea', '#fed6e3'],
-                 ['#9890e3', '#b1f4cf'],
-                 ['#a1c4fd', '#c2e9fb'],
-                 ['#fff1eb', '#ace0f9']
-           
-            ]
-        }
-    }
-});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站运行时间与访问量</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        /* 本站已苟活天数的CSS样式已移除 */
+    </style>
+</head>
+<body>
+    </body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一言展示</title>
+    <style>
+        #hitokoto {
+            font-size: 64px;
+            color: #42A5F5; /* 一言CSS颜色改为蓝色 */
+        }
+    </style>
+</head>
+<body>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const script = document.createElement('script');
+            script.src = 'https://v1.hitokoto.cn/?encode=js&select=%23hitokoto';
+            script.onload = function() {
+                // 这里不需要额外操作，脚本加载后会自动设置#hitokoto的内容
+            };
+            document.body.appendChild(script);
+        });
+    </script>
+</body>
+</html>
+
+<meting-js 
+    name="明天会更好" 
+    artist="卓依婷" 
+    url="https://mikupan.com/f/OzKi1/%E6%98%8E%E5%A4%A9%E4%BC%9A%E6%9B%B4%E5%A5%BD%20-%20%E5%8D%93%E4%BE%9D%E5%A9%B7%20-%20128k.mp3" 
+    cover="https://pic1.imgdb.cn/item/6868bf1be11be7de132539a3.png"
+    fixed="true">
+</meting-js>
 </script>
-<!-- 网页鼠标点击特效 - 核心价值观关键字 -->
-<script>
-    (function () {
-        var a_idx = 0;
-        window.onclick = function (event) {
-            var a = new Array("❤富强❤", "❤民主❤", "❤文明❤", "❤和谐❤", "❤自由❤", "❤平等❤", "❤公正❤", "❤法治❤", "❤爱国❤",
-                "❤敬业❤", "❤诚信❤", "❤友善❤");
-            var heart = document.createElement("b"); //创建b元素
-            heart.onselectstart = new Function('event.returnValue=false'); //防止拖动
-
-            document.body.appendChild(heart).innerHTML = a[a_idx]; //将b元素添加到页面上
-            a_idx = (a_idx + 1) % a.length;
-            heart.style.cssText = "position: fixed;left:-100%;"; //给p元素设置样式
-
-            var f = 13, // 字体大小
-                x = event.clientX - f / 2 - 30, // 横坐标
-                y = event.clientY - f, // 纵坐标
-                c = randomColor(), // 随机颜色
-                a = 1, // 透明度
-                s = 0.8; // 放大缩小
-
-            var timer = setInterval(function () { //添加定时器
-                if (a <= 0) {
-                    document.body.removeChild(heart);
-                    clearInterval(timer);
-                } else {
-                    heart.style.cssText = "font-size:16px;cursor: default;position: fixed;color:" +
-                        c + ";left:" + x + "px;top:" + y + "px;opacity:" + a + ";transform:scale(" +
-                        s + ");";
-
-                    y--;
-                    a -= 0.016;
-                    s += 0.002;
-                }
-            }, 15)
-        }
-        // 随机颜色
-        function randomColor() {
-            return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math
-                .random() * 255)) + ")";
-        }
-    }());
-</script>
-
-<script src="https://cdn.jsdelivr.net/gh/mocchen/cssmeihua/js/yanhuabowen.js"></script>
-<span class="js-cursor-container"></span>
-<script src="https://cdn.jsdelivr.net/gh/mocchen/cssmeihua/js/xiaoxingxing.js"></script>
+</body>
