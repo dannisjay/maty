@@ -65,6 +65,11 @@ rules:
   - RULE-SET,Advertising,AdBlock
   - DOMAIN-SUFFIX,publish.u-tools.cn,REJECT
   - DOMAIN-SUFFIX,terabox.com,手动切换
+  - DOMAIN-SUFFIX,javdb.com,手动切换
+  - DOMAIN-SUFFIX,dmm.co.jp,手动切换
+  - DOMAIN-SUFFIX,jdbstatic.com,手动切换
+  - DOMAIN-SUFFIX,javcover.com,手动切换
+  - DOMAIN-SUFFIX,nyaa.si,手动切换
   - RULE-SET,ChinaIP,DIRECT
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Lan,DIRECT
