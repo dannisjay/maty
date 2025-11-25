@@ -70,6 +70,7 @@ rules:
   - DOMAIN-SUFFIX,jdbstatic.com,手动切换
   - DOMAIN-SUFFIX,javcover.com,手动切换
   - DOMAIN-SUFFIX,nyaa.si,手动切换
+  - DOMAIN-SUFFIX,greasyfork.org,手动切换
   - RULE-SET,ChinaIP,DIRECT
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Lan,DIRECT
