@@ -7,7 +7,7 @@ $config = [
     'admin_token' => 'token',     #emby_api_token
     'server_url' => 'http://emby:8096',            #emby地址
     'preset_userid' => 'emby_id',   #普通用户ID
-    //  访问 http://你的IP:8096/emby/system/info/public 获取你的id(非管理员账户)
+    //  浏览器访问emby，点进用户界面，复制浏览器输入框userid=后面的内容
     'invite_file' => 'invite_codes.json',     #自动生成，给目录权限
     'emby_login_url' => 'https://emby.com',  #emby公网地址
     'admin_password' => 'admin',         #管理员密码
