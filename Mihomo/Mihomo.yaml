@@ -53,7 +53,7 @@ rule-providers:
 
 # 分流Policy 
 rules:
-  - IP-CIDR,152.67.219.35/24,手动切换
+  - IP-CIDR,152.67.219.0/24,手动切换
   - RULE-SET,AdBlock,AdBlock
   - RULE-SET,Apple,DIRECT
   - RULE-SET,Github,手动切换
